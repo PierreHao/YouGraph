@@ -15,10 +15,10 @@
   },
   "architecture": {
     "layers": 3,
-    "hidden": 512,
+    "hidden": 384,
     "pooling": "add",
     "JK": "cat",
-    "methods": "EB1",
+    "methods": "EB4",
     "dropout": 0.5,
     "T": 10,
     "flag": "true",
