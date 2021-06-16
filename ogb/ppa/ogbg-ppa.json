@@ -1,0 +1,30 @@
+{
+  "dataset_name": "ogbg-ppa",
+  "seed": 777,
+  "num_workers": 2,
+  "feature": "full",
+  "save": "true",
+  "hyperparams": {
+    "batch_size": 24,
+    "epochs": 200,
+    "learning_rate": 0.0005,
+    "step_size": 20,
+    "decay_rate": 0.1,
+    "warmup_epochs": 20,
+    "weight_decay": 0.00001
+  },
+  "architecture": {
+    "layers": 3,
+    "hidden": 512,
+    "pooling": "add",
+    "JK": "cat",
+    "methods": "EB1",
+    "dropout": 0.5,
+    "T": 10,
+    "flag": "true",
+    "virtual_node": "true",
+    "variants": {
+      "BN": "Y"
+    }
+  }
+}
