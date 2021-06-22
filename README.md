@@ -24,12 +24,12 @@ bot : bag of tricks
 ## ogbg-ppa
 | methods | test accuracy | val accuracy | Parameters | Hardware |
 | ------ | ------ | ----- | ----- | ----- |
-| ExpC+bot | 0.8140±0.0028 | 0.7811±0.0012 | 14M | Tesla V100 32GB |
+| ExpC+bot | 0.8140±0.0028 | 0.7811±0.0012 | 3.7M | Tesla V100 32GB |
 
 ## ogbg-code2
 | methods | test accuracy | val accuracy | Parameters | Hardware |
 | ------ | ------ | ----- | ----- | ----- |
-| GMAN+bot | 0.1770±0.0012 | 0.1631±0.0090 | 243M | Tesla V100 32GB |
+| GMAN+bot | 0.1770±0.0012 | 0.1631±0.0090 | 63.7M | Tesla V100 32GB |
 
 # Reference:
 1. https://github.com/qslim/epcb-gnns
