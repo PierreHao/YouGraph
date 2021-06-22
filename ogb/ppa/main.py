@@ -80,12 +80,12 @@ def main():
     config = process_config(args)
     print(config)
 
-    if config.get('seed') is not None:
-        random.seed(config.seed)
-        torch.manual_seed(config.seed)
-        np.random.seed(config.seed)
-        if torch.cuda.is_available():
-            torch.cuda.manual_seed_all(config.seed)
+    #if config.get('seed') is not None:
+    #    random.seed(config.seed)
+    #    torch.manual_seed(config.seed)
+    #    np.random.seed(config.seed)
+    #    if torch.cuda.is_available():
+    #        torch.cuda.manual_seed_all(config.seed)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
