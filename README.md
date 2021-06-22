@@ -8,8 +8,8 @@
 
 # Baseline models
 1. The path of ogbn-ppa dataset should be ogb/ppa/dataset/ogbn_ppa, then you can get the performance reported by running the default code 10 times. In fact, we can get 82 by other parameters, but the model will be too large and training is much more slower. So in this report, we only set the parameters for the performance 81.4.
-2. The path of ogbn-code2 dataset should be ogb/code/dataset/ogbn_code2
-Then you could get the performance reported by running the default code 10 times
+2. The path of ogbn-code2 dataset should be ogb/code/dataset/ogbn_code2.
+Then you can get the performance reported by running the default code 10 times
 
 ## ogbg-ppa
 1. cd ogb/ppa; 
