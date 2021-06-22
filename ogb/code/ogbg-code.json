@@ -1,0 +1,30 @@
+{
+  "dataset_name": "ogbg-code2",
+  "seed": 777,
+  "num_workers": 4,
+  "feature": "full",
+  "max_seq_len": 5,
+  "num_vocab": 5000,
+  "hyperparams": {
+    "batch_size": 64,
+    "epochs": 50,
+    "learning_rate": 0.001,
+    "step_size": 10,
+    "decay_rate": 0.1,
+    "warmup_epochs": 10,
+    "weight_decay": 0.00005
+  },
+  "architecture": {
+    "layers": 3,
+    "hidden": 512,
+    "pooling": "mean",
+    "JK": "cat",
+    "methods": "AC",
+    "dropout": 0.5,
+    "T": 10,
+    "virtual_node": "true",
+    "variants": {
+      "BN": "Y"
+    }
+  }
+}

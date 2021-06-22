@@ -1,0 +1,28 @@
+{
+  "dataset_name": "ogbg-molhiv",
+  "num_workers": 2,
+  "feature": "full",
+  "hyperparams": {
+    "batch_size": 256,
+    "epochs": 50,
+    "learning_rate": 0.0001,
+    "step_size": 30,
+    "decay_rate": 0.1,
+    "warmup_epochs": 0,
+    "weight_decay": 0.000
+  },
+  "architecture": {
+    "layers": 3,
+    "hidden": 128,
+    "pooling": "mean",
+    "JK": "cat",
+    "methods": "AC",
+    "dropout": 0.0,
+    "T": 1,
+    "flag": "false",
+    "virtual_node": "false",
+    "variants": {
+      "BN": "Y"
+    }
+  }
+}
