@@ -16,7 +16,7 @@ Then you could get the performance reported by running the default code 10 times
 2. sh run_script.sh 0
 
 ## ogbn-code2
-1. cd ogn/code;
+1. cd ogb/code;
 2. sh run_script.sh 0
 
 # Performance
