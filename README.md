@@ -19,6 +19,14 @@ Then you can get the performance reported by running the default code 10 times
 1. cd ogb/code;
 2. sh run_script.sh 0
 
+## ogbg-molhiv
+We follow the [Neural FingerPrints](https://github.com/PaddlePaddle/PaddleHelix/tree/dev/competition/ogbg_molhiv) to get MorganFingerprint and MACCSFingerprint. Instead of adopting Soft-MorganFingerprint, we find that these two conventional fingerprints already serve as a strong baseline.
+
+1. cd ogb/molhiv
+2. python extract_fingerprint.py
+3. python random_forest.py
+4. ...
+
 # Performance
 bot : bag of tricks
 ## ogbg-ppa
