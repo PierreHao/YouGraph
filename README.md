@@ -7,9 +7,10 @@
 5. torch-sparse=0.6.9
 
 # Baseline models
-1. The path of ogbn-ppa dataset should be ogb/ppa/dataset/ogbn_ppa, then you can get the performance reported by running the default code 10 times. In fact, we can get 82 by other parameters, but the model will be too large and training is much more slower. So in this report, we only set the parameters for the performance 81.4.
-2. The path of ogbn-code2 dataset should be ogb/code/dataset/ogbn_code2.
+1. The path of ogbg-ppa dataset should be ogb/ppa/dataset/ogbg_ppa, then you can get the performance reported by running the default code 10 times. In fact, we can get 82 by other parameters, but the model will be too large and training is much more slower. So in this report, we only set the parameters for the performance 81.4.
+2. The path of ogbg-code2 dataset should be ogb/code/dataset/ogbg_code2.
 Then you can get the performance reported by running the default code 10 times
+3. The path of ogbg-molhiv dataset should be ogb/molhiv/dataset/ogbg_molhiv. We run 10 different random forest models for FingerPrint, then join train a deep gnn model for each random forest model. You can get the 10 results by running the default code as follows.
 
 ## ogbg-ppa
 1. cd ogb/ppa; 
