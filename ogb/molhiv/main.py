@@ -16,7 +16,7 @@ import datetime
 from utils.util import warm_up_lr, flag
 
 
-cls_criterion = torch.nn.BCEWithLogitsLoss()
+cls_criterion = torch.nn.BCELoss()
 reg_criterion = torch.nn.MSELoss()
 
 
@@ -39,19 +39,19 @@ def train(model, device, loader, optimizer, task_type, config):
             pass
         else:
             ## ignore nan targets (unlabeled) when computing training loss.
-            is_labeled = batch.y == batch.y
+            is_labeled = batch.y[:,0] == batch.y[:,0]
             criterion =  cls_criterion if "classification" in task_type else reg_criterion
             if config.flag == 'true':
                 forward = lambda perturb : model(batch, perturb).to(torch.float32)[is_labeled]
                 model_forward = (model, forward)
-                y = batch.y.to(torch.float32)[is_labeled]
+                y = batch.y[:,0:1].to(torch.float32)[is_labeled]
                 perturb_shape = (batch.x.shape[0], model.config.hidden)
                 loss, _ = flag(model_forward, perturb_shape, y, optimizer, device, criterion)
                 loss_all += loss.item()
             else:
-                pred = model(batch)
+                pred = model(batch) #/ config.T
                 optimizer.zero_grad()
-                loss = criterion(pred.to(torch.float32)[is_labeled], batch.y.to(torch.float32)[is_labeled])
+                loss = criterion(pred.to(torch.float32)[is_labeled], batch.y[:,0:1].to(torch.float32)[is_labeled])
                 loss.backward()
                 loss_all += loss.item()
                 optimizer.step()
@@ -73,7 +73,7 @@ def eval(model, device, loader, evaluator):
             with torch.no_grad():
                 pred = model(batch)
 
-            y_true.append(batch.y.view(pred.shape).detach().cpu())
+            y_true.append(batch.y[:,0:1].view(pred.shape).detach().cpu())
             y_pred.append(pred.detach().cpu())
 
     y_true = torch.cat(y_true, dim=0).numpy()
@@ -84,7 +84,7 @@ def eval(model, device, loader, evaluator):
     return evaluator.eval(input_dict)
 
 
-def main():
+def main(mgf_maccs_pred, best_test, best_val):
     args = get_args()
     config = process_config(args)
     print(config)
@@ -99,11 +99,10 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     ### automatic dataloading and splitting
-
-    #sys.stdin = In()
-
     dataset = PygGraphPropPredDataset(name=config.dataset_name)
-
+    #####
+    #mgf_maccs_pred = np.load("rf_preds/rf_pred_auc_0.8289_0.8150.npy")
+    dataset.data.y = torch.cat((dataset.data.y, torch.from_numpy(mgf_maccs_pred)), 1)
     if config.feature == 'full':
         pass
     elif config.feature == 'simple':
@@ -131,7 +130,7 @@ def main():
     
     #optimizer = optim.Adam(model.parameters(), lr=config.hyperparams.learning_rate)
     optimizer = optim.AdamW(model.parameters(), lr=config.hyperparams.learning_rate, weight_decay=config.hyperparams.weight_decay)
-    #scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, config.hyperparams.epochs - config.hyperparams.warmup_epochs, eta_min=config.hyperparams.learning_rate/100)
+    #scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, config.hyperparams.epochs - config.hyperparams.warmup_epochs, eta_min=0.0000001)#config.hyperparams.learning_rate)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=config.hyperparams.step_size,
                                                 gamma=config.hyperparams.decay_rate)
     
@@ -173,8 +172,20 @@ def main():
         best_train = min(train_curve)
 
     print('Finished test: {}, Validation: {}, epoch: {}, best train: {}, best loss: {}'
-          .format(test_curve[-1], valid_curve[-1],
-                  epoch-1, best_train, min(trainL_curve)))
+          .format(test_curve[best_val_epoch], valid_curve[best_val_epoch],
+                  best_val_epoch, best_train, min(trainL_curve)))
+    best_test.append(test_curve[-1])
+    best_val.append(valid_curve[-1])
 
 if __name__ == "__main__":
-    main()
+    import os
+    npy = os.listdir('rf_preds')
+    best_test = []
+    best_val = []
+    for i, file_ in enumerate(npy):
+        print (i, file_)
+        if file_.split('_')[1] == 'pred':
+            rf_pred = np.load(os.path.join('rf_preds', file_))
+            main(rf_pred, best_test, best_val)
+    print ("final test result: ", np.mean(np.array(best_test)), np.std(np.array(best_test)))
+    print ("final val result: ", np.mean(np.array(best_val)), np.std(np.array(best_val)))

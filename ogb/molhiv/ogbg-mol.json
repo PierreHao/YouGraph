@@ -3,26 +3,31 @@
   "num_workers": 2,
   "feature": "full",
   "hyperparams": {
-    "batch_size": 256,
-    "epochs": 50,
-    "learning_rate": 0.0001,
-    "step_size": 30,
+    "batch_size": 2048,
+    "epochs": 12,
+    "learning_rate": 0.0005,
+    "step_size": 8,
     "decay_rate": 0.1,
-    "warmup_epochs": 0,
-    "weight_decay": 0.000
+    "warmup_epochs": 3,
+    "weight_decay": 0.0005
   },
   "architecture": {
     "layers": 3,
-    "hidden": 128,
+    "hidden": 256,
     "pooling": "mean",
-    "JK": "cat",
-    "methods": "AC",
-    "dropout": 0.0,
+    "JK": "last",
+    "methods": "AC2",
+    "dropout": 0.2,
     "T": 1,
+    "block": "res",
     "flag": "false",
     "virtual_node": "false",
     "variants": {
-      "BN": "Y"
+      "BN": "N",
+      "msg_norm": "false",
+      "learn_msg_scale": "false",
+      "softmax_aggr": "false",
+      "learn_t": "false"
     }
   }
 }

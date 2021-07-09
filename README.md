@@ -25,10 +25,15 @@ We follow the [Neural FingerPrints](https://github.com/PaddlePaddle/PaddleHelix/
 1. cd ogb/molhiv
 2. python extract_fingerprint.py
 3. python random_forest.py
-4. ...
+4. sh run_scipt.sh 0
 
 # Performance
 bot : bag of tricks
+## ogbg-molhiv
+| methods | test accuracy | val accuracy | Parameters | Hardware |
+| ------ | ------ | ----- | ----- | ----- |
+| FingerPrint+GMAN | 0.8244±0.0033 | 0.8329±0.0039 | 1.37M | Tesla V100 32GB |
+
 ## ogbg-ppa
 | methods | test accuracy | val accuracy | Parameters | Hardware |
 | ------ | ------ | ----- | ----- | ----- |
