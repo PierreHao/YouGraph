@@ -1,0 +1,28 @@
+{
+  "dataset_name": "ogbg-molpcba",
+  "num_workers": 4,
+  "feature": "full",
+  "hyperparams": {
+    "batch_size": 100,
+    "epochs": 65,
+    "learning_rate": 0.001,
+    "step_size": 40,
+    "decay_rate": 0.1,
+    "warmup_epochs": 5,
+    "weight_decay": 0.0005
+  },
+  "architecture": {
+    "layers": 5,
+    "hidden": 384,
+    "pooling": "mean",
+    "JK": "last",
+    "degree": "true",
+    "methods": "gin+",
+    "dropout": 0.5,
+    "k": 3,
+    "T": 1,
+    "flag": "false",
+    "virtual_node": "true",
+    "appnp": "true"
+  }
+}
